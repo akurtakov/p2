@@ -13,17 +13,14 @@
  *******************************************************************************/
 package org.eclipse.equinox.p2.tests.installer;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 /**
  * All installer tests.
  */
+@Suite
+@SelectClasses({ InstallDescriptionParserTest.class })
 public class AllTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite(AllTests.class.getName());
-		suite.addTestSuite(InstallDescriptionParserTest.class);
-		return suite;
-	}
-
+	// test suite
 }
