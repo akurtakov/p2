@@ -14,12 +14,12 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests format(r)
@@ -82,9 +82,9 @@ public class FormatRTest {
 
 	@Test
 	public void testNonRElements() {
-		assertThrows("a is not a valid raw element", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(r):aaa"));
-		assertThrows("comma is not a delimiter in raw format", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(r):1,2"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(r):aaa"), "a is not a valid raw element");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(r):1,2"), "comma is not a delimiter in raw format");
 	}
 }

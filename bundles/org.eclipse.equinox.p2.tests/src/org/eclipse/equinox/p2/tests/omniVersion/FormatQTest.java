@@ -14,12 +14,12 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests format(q) smart quoted string - matches a quoted alphanumeric string
@@ -138,10 +138,10 @@ public class FormatQTest {
 		assertNotNull(v = Version.parseVersion("format(q={2};.q={1};qq={3};):<12>.<3>'456'<abc>"));
 		assertEquals(Version.parseVersion("raw:'12'.'3'.'456'.'abc'"), v);
 
-		assertThrows("Error: quoted string is longer than 4", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(q={4};.q):123.(abc456)'def'"));
-		assertThrows("Error: quoted string is shorter than 4", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(q={4};q):<123>(abc456'def')"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(q={4};.q):123.(abc456)'def'"), "Error: quoted string is longer than 4");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(q={4};q):<123>(abc456'def')"), "Error: quoted string is shorter than 4");
 	}
 
 	@Test
@@ -159,14 +159,14 @@ public class FormatQTest {
 		assertNotNull(v = Version.parseVersion("format(q={2,};q):<123a>(bc456'def')"));
 		assertEquals(Version.parseVersion("raw:'123a'.\"bc456'def'\""), v);
 
-		assertThrows("Eror: first segment is shorter than 2", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(q={2,};.q):1.abc456'def'"));
-		assertThrows("Eror: firt segment is shorter than 2", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(q={2,};q):<1>(abc456'def')"));
-		assertThrows("Eror: last segment is shorter than 10", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(q={2,};.q={10,};):(12).(abc456'd')"));
-		assertThrows("Eror: fsecond segment is not quoted", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(q={2,};.q={10,};):<12>.abc456'd'"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(q={2,};.q):1.abc456'def'"), "Eror: first segment is shorter than 2");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(q={2,};q):<1>(abc456'def')"), "Eror: firt segment is shorter than 2");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(q={2,};.q={10,};):(12).(abc456'd')"), "Eror: last segment is shorter than 10");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(q={2,};.q={10,};):<12>.abc456'd'"), "Eror: fsecond segment is not quoted");
 	}
 
 	@Test

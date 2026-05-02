@@ -14,11 +14,11 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.eclipse.equinox.p2.metadata.IVersionFormat;
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test common patterns:

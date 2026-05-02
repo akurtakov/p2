@@ -14,12 +14,12 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests format(s), and format(S)
@@ -34,8 +34,8 @@ public class FormatSTest {
 		Version v = Version.parseVersion("format(S):1");
 		assertNotNull(v);
 		assertEquals(Version.parseVersion("raw:'1'"), v);
-		assertThrows("Uncaught error: s should not accept digits", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s):1"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s):1"), "Uncaught error: s should not accept digits");
 	}
 
 	@Test
@@ -53,8 +53,8 @@ public class FormatSTest {
 		Version v = Version.parseVersion("format(sn):foobar123");
 		assertNotNull(v);
 		assertEquals(Version.parseVersion("raw:'foobar'.123"), v);
-		assertThrows("Uncaught error: S should eat entire string, no n found at the end",
-				IllegalArgumentException.class, () -> Version.parseVersion("format(Sn):foobar123"));
+		assertThrows(
+				IllegalArgumentException.class, () -> Version.parseVersion("format(Sn):foobar123"), "Uncaught error: S should eat entire string, no n found at the end");
 	}
 
 	@Test
@@ -65,8 +65,8 @@ public class FormatSTest {
 		assertEquals(Version.parseVersion("raw:'foo bar'.123"), v);
 
 		// Test 's' with attempt to include 'space' and delimiters
-		assertThrows("Uncaught error: format(s) can not match non letters (space).", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s=[^];n):foo bar123"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s=[^];n):foo bar123"), "Uncaught error: format(s) can not match non letters (space).");
 	}
 
 	@Test
@@ -121,12 +121,12 @@ public class FormatSTest {
 		assertNotNull(v = Version.parseVersion("format(S={2};.S={1};s={3};):12.3abc"));
 		assertEquals(Version.parseVersion("raw:'12'.'3'.'abc'"), v);
 
-		assertThrows("Uncaught error: first segment is less than 4 chars long", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s={4};.s):aaa.abc456'def'"));
-		assertThrows("Uncaught error: first segment has digits", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s={4};.s):123.abc456'def'"));
-		assertThrows("Uncaught error: first segment has only 3 characters", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(S={4}=[^.];.S):123.abc456'def'"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s={4};.s):aaa.abc456'def'"), "Uncaught error: first segment is less than 4 chars long");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s={4};.s):123.abc456'def'"), "Uncaught error: first segment has digits");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(S={4}=[^.];.S):123.abc456'def'"), "Uncaught error: first segment has only 3 characters");
 
 	}
 
@@ -143,10 +143,10 @@ public class FormatSTest {
 		assertNotNull(v = Version.parseVersion("format(S={2,};=[^.];.S):123a.bc456'def'"));
 		assertEquals(Version.parseVersion("raw:'123a'.\"bc456'def'\""), v);
 
-		assertThrows("Uncaught error: first segment is shorter than 2", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s={2,};.S):a.abc456'def'"));
-		assertThrows("Uncaught error: second segment too short", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s={2,};.s={10,};):aa.abcd"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s={2,};.S):a.abc456'def'"), "Uncaught error: first segment is shorter than 2");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s={2,};.s={10,};):aa.abcd"), "Uncaught error: second segment too short");
 	}
 
 	@Test

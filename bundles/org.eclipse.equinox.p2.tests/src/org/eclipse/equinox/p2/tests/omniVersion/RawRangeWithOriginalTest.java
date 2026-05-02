@@ -14,13 +14,13 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.internal.p2.metadata.VersionFormat;
 import org.eclipse.equinox.p2.metadata.Version;
 import org.eclipse.equinox.p2.metadata.VersionRange;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests inclusion of original version range string in raw format.

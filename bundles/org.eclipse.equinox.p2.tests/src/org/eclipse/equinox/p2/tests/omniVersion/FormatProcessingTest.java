@@ -14,12 +14,12 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests processing rules not tested elsewhere, and combinations of processing
@@ -114,18 +114,18 @@ public class FormatProcessingTest {
 	 */
 	@Test
 	public void testSameMoreThanOnce() {
-		assertThrows("error detected:2 x =!;", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(n=!;=!;.n):1.2"));
-		assertThrows("error detected:2 x =[];", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s=[abc];=[123];.n):abc123.2"));
-		assertThrows("error detected:2x [^];", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(nd=[^:];=[^:];n):1.2"));
-		assertThrows("error detected:2x ={ };", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(n={1,3};={1,3};.n):1.2"));
-		assertThrows("error detected:2x =default value", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(n=0;=1;.n):1.2"));
-		assertThrows("error detected:2x =pm;", IllegalArgumentException.class,
-				() -> Version.parseVersion("format((n.n)=pm;=pm;):1.2"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(n=!;=!;.n):1.2"), "error detected:2 x =!;");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s=[abc];=[123];.n):abc123.2"), "error detected:2 x =[];");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(nd=[^:];=[^:];n):1.2"), "error detected:2x [^];");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(n={1,3};={1,3};.n):1.2"), "error detected:2x ={ };");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(n=0;=1;.n):1.2"), "error detected:2x =default value");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format((n.n)=pm;=pm;):1.2"), "error detected:2x =pm;");
 
 	}
 
@@ -134,8 +134,8 @@ public class FormatProcessingTest {
 	 */
 	@Test
 	public void testSetNotSet() {
-		assertThrows("error detected: =[];=[^];", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(nd=[a-z];=[^.:];n):1.2"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(nd=[a-z];=[^.:];n):1.2"), "error detected: =[];=[^];");
 	}
 
 	/**
@@ -143,50 +143,50 @@ public class FormatProcessingTest {
 	 */
 	@Test
 	public void testBadPadCombinations() {
-		assertThrows("error detected: =p; =[];", IllegalArgumentException.class,
-				() -> Version.parseVersion("format((n.n)=pm;=[abc];):1.2"));
-		assertThrows("error detected: =p; =[];", IllegalArgumentException.class,
-				() -> Version.parseVersion("format((n.n)=pm;=[^.:];):1.2"));
-		assertThrows("error detected: =p; ={};", IllegalArgumentException.class,
-				() -> Version.parseVersion("format((n.n)=pm;={1,3};):1.2"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format((n.n)=pm;=[abc];):1.2"), "error detected: =p; =[];");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format((n.n)=pm;=[^.:];):1.2"), "error detected: =p; =[];");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format((n.n)=pm;={1,3};):1.2"), "error detected: =p; ={};");
 
-		assertThrows("error detected: =p; =!;", IllegalArgumentException.class,
-				() -> Version.parseVersion("format((n.n)=pm;=!;):1.2"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format((n.n)=pm;=!;):1.2"), "error detected: =p; =!;");
 	}
 
 	@Test
 	public void testNonPaddable() {
-		assertThrows("error detected: n=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format(n=pm;):1"));
-		assertThrows("error detected: n=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format(N=pm;):1"));
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format(n=pm;):1"), "error detected: n=p;");
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format(N=pm;):1"), "error detected: n=p;");
 
-		assertThrows("error detected: s=p;", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(s=pm;):a"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(s=pm;):a"), "error detected: s=p;");
 
-		assertThrows("error detected: S=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format(S=pm;):a"));
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format(S=pm;):a"), "error detected: S=p;");
 
-		assertThrows("error detected: a=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format(a=pm;):a"));
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format(a=pm;):a"), "error detected: a=p;");
 
-		assertThrows("error detected: d=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format(d=pm;):a"));
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format(d=pm;):a"), "error detected: d=p;");
 
-		assertThrows("error detected: q=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format(q=pm;):a"));
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format(q=pm;):a"), "error detected: q=p;");
 
-		assertThrows("error detected: q=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format(r=pm;):a"));
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format(r=pm;):a"), "error detected: q=p;");
 
-		assertThrows("error detected: 'x'=p;", IllegalArgumentException.class,
-				() ->Version.parseVersion("format('x'=pm;n):x1"));
+		assertThrows(IllegalArgumentException.class,
+				() ->Version.parseVersion("format('x'=pm;n):x1"), "error detected: 'x'=p;");
 
-		assertThrows("error detected: .=p;", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(.=pm;n):x1"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(.=pm;n):x1"), "error detected: .=p;");
 
-		assertThrows("error detected: p=p;", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(p=pm;n):x1"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(p=pm;n):x1"), "error detected: p=p;");
 	}
 
 }

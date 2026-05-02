@@ -14,12 +14,12 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests format(n) and format(N)
@@ -34,8 +34,8 @@ public class FormatNTest {
 		assertNotNull(v = Version.parseVersion("format(n):0"));
 		assertEquals(Version.parseVersion("raw:0"), v);
 
-		assertThrows("negative number in 'n' format", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(n):-1"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(n):-1"), "negative number in 'n' format");
 	}
 
 	@Test

@@ -14,14 +14,14 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests versions specified with default OSGi version strings and tests OSGi compatibility
@@ -86,8 +86,8 @@ public class OSGiVersionTest extends VersionTesting {
 
 	@Test
 	public void testPeriodInQualifier() {
-		assertThrows("Uncaught exception: period is not allowed in osgi qualifier", IllegalArgumentException.class,
-				() -> Version.parseVersion("1.0.0.sailor.moon"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("1.0.0.sailor.moon"), "Uncaught exception: period is not allowed in osgi qualifier");
 	}
 
 	@Test
@@ -178,25 +178,25 @@ public class OSGiVersionTest extends VersionTesting {
 	public void testCompatability() {
 		Version v = Version.parseVersion("raw:1.2.3.'foo'");
 		assertNotNull(v);
-		assertTrue("a raw:1.2.3.'foo' compatible with OSGi", v.isOSGiCompatible());
+		assertTrue(v.isOSGiCompatible(), "a raw:1.2.3.'foo' compatible with OSGi");
 
 		assertNotNull(v = Version.parseVersion("raw:1.2.3"));
-		assertTrue("a raw:1.2.3 compatible with OSGi", v.isOSGiCompatible());
+		assertTrue(v.isOSGiCompatible(), "a raw:1.2.3 compatible with OSGi");
 
 		assertNotNull(v = Version.parseVersion("raw:1.2.3p''"));
-		assertFalse("a raw:1.2.3p'' not compatible with OSGi", v.isOSGiCompatible());
+		assertFalse(v.isOSGiCompatible(), "a raw:1.2.3p'' not compatible with OSGi");
 
 		assertNotNull(v = Version.parseVersion("raw:1.2.3.4"));
-		assertFalse("a raw (4th is int) not compatible with OSGi", v.isOSGiCompatible());
+		assertFalse(v.isOSGiCompatible(), "a raw (4th is int) not compatible with OSGi");
 
 		assertNotNull(v = Version.parseVersion("raw:1.2.3.'foo'.'bar'"));
-		assertFalse("a raw (5 elements) not compatible with OSGi", v.isOSGiCompatible());
+		assertFalse(v.isOSGiCompatible(), "a raw (5 elements) not compatible with OSGi");
 
 		assertNotNull(v = Version.parseVersion("raw:1.2"));
-		assertFalse("a raw (only 2 elements) not compatible with OSGi", v.isOSGiCompatible());
+		assertFalse(v.isOSGiCompatible(), "a raw (only 2 elements) not compatible with OSGi");
 
 		assertNotNull(v = Version.parseVersion("raw:1.2.3.' %@'"));
-		assertFalse("a raw (illegal chars in qualifier) not compatible with OSGi", v.isOSGiCompatible());
+		assertFalse(v.isOSGiCompatible(), "a raw (illegal chars in qualifier) not compatible with OSGi");
 
 	}
 

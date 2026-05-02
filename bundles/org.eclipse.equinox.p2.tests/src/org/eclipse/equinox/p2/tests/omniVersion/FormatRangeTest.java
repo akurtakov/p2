@@ -14,12 +14,12 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.p2.metadata.Version;
 import org.eclipse.equinox.p2.metadata.VersionRange;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests ranges using format(xxx) version strings.
@@ -37,8 +37,8 @@ public class FormatRangeTest extends VersionTesting {
 
 	@Test
 	public void testEmptyRange() {
-		assertThrows("Uncaught error: range can not be empty", IllegalArgumentException.class,
-				() -> new VersionRange(OSGI_PREFIX));
+		assertThrows(IllegalArgumentException.class,
+				() -> new VersionRange(OSGI_PREFIX), "Uncaught error: range can not be empty");
 	}
 
 	@Test

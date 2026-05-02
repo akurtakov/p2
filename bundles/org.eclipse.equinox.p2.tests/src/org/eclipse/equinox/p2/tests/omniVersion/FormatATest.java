@@ -14,16 +14,16 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.eclipse.equinox.p2.metadata.IVersionFormat;
 import org.eclipse.equinox.p2.metadata.Version;
 import org.eclipse.equinox.p2.metadata.VersionFormatException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the format(a) rule.
@@ -123,8 +123,8 @@ public class FormatATest {
 		Version v2 = Version.parseVersion("raw:12.'foo'.2");
 		assertEquals(v1, v2);
 
-		assertThrows("bad enum was not detected", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(aa={alpha,beta,gamma};a):12foo2"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(aa={alpha,beta,gamma};a):12foo2"), "bad enum was not detected");
 
 	}
 
@@ -140,8 +140,8 @@ public class FormatATest {
 		v2 = Version.parseVersion("raw:12.{alpha,^beta,gamma}.2");
 		assertEquals(v1, v2);
 
-		assertThrows("enum case sensitivity ignored", IllegalArgumentException.class,
-				() -> Version.parseVersion("format(aa={alpha,beta,gamma};a):12BETA2"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.parseVersion("format(aa={alpha,beta,gamma};a):12BETA2"), "enum case sensitivity ignored");
 
 	}
 

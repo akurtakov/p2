@@ -14,14 +14,14 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.equinox.internal.p2.metadata.VersionVector;
 import org.eclipse.equinox.p2.metadata.Version;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the OmniVersion raw version format.
@@ -49,8 +49,8 @@ public class RawVersionTest extends VersionTesting {
 
 	@Test
 	public void testEnumParsing() {
-		assertThrows("Parsing succeeded but enum had no ordinal indicator", IllegalArgumentException.class,
-				() -> Version.create("raw:{blue,green,yellow}"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:{blue,green,yellow}"), "Parsing succeeded but enum had no ordinal indicator");
 		Version.create("raw:{blue,^green,yellow}");
 	}
 
@@ -312,16 +312,16 @@ public class RawVersionTest extends VersionTesting {
 
 	@Test
 	public void testWhiteSpaceExceptions() {
-		assertThrows("space not allowed 1", IllegalArgumentException.class, () -> Version.create("raw: 0 "));
-		assertThrows("space not allowed 2", IllegalArgumentException.class,
-				() -> Version.create("raw:0 .1  . 'a'.   'b c d'. 4. 5. 6.   7. 8 .  9"));
+		assertThrows(IllegalArgumentException.class, () -> Version.create("raw: 0 "), "space not allowed 1");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:0 .1  . 'a'.   'b c d'. 4. 5. 6.   7. 8 .  9"), "space not allowed 2");
 
-		assertThrows("space not allowed in array 1", IllegalArgumentException.class,
-				() -> Version.create("raw:< 1.2.3>"));
-		assertThrows("space not allowed in array 2", IllegalArgumentException.class,
-				() -> Version.create("raw:<1.2.3 >"));
-		assertThrows("Uncaught error: space between minus and number in negative", IllegalArgumentException.class,
-				() -> Version.create("raw:1.- 1"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:< 1.2.3>"), "space not allowed in array 1");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:<1.2.3 >"), "space not allowed in array 2");
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:1.- 1"), "Uncaught error: space between minus and number in negative");
 	}
 
 	@Test
@@ -800,25 +800,25 @@ public class RawVersionTest extends VersionTesting {
 	@Test
 	public void testHex() {
 		// should parse with exception
-		assertThrows("Uncaught error: hexadecimal not allowed", IllegalArgumentException.class, () ->Version.create("raw:0xABCD"));
+		assertThrows(IllegalArgumentException.class, () ->Version.create("raw:0xABCD"), "Uncaught error: hexadecimal not allowed");
 	}
 
 	@Test
 	public void testUnbalancedSingleQuoteRight() {
-		assertThrows("Uncaught error: unbalanced sngle quote", IllegalArgumentException.class,
-				() -> Version.create("raw:'unbalanced"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:'unbalanced"), "Uncaught error: unbalanced sngle quote");
 	}
 
 	@Test
 	public void testMixedQuotes1() {
-		assertThrows("Uncaught error: mixed quotes", IllegalArgumentException.class,
-				() -> Version.create("raw:1.\"unbalanced'.10"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:1.\"unbalanced'.10"), "Uncaught error: mixed quotes");
 	}
 
 	@Test
 	public void testMixedQuotes2() {
-		assertThrows("Uncaught error: mixed quotes", IllegalArgumentException.class,
-				() -> Version.create("raw:1.'unbalanced\".10"));
+		assertThrows(IllegalArgumentException.class,
+				() -> Version.create("raw:1.'unbalanced\".10"), "Uncaught error: mixed quotes");
 	}
 
 	@Test

@@ -14,12 +14,12 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.eclipse.equinox.p2.metadata.Version;
 import org.eclipse.equinox.p2.metadata.VersionRange;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests version ranges specified using raw.
@@ -34,8 +34,8 @@ public class RawRangeTest extends VersionTesting {
 		VersionRange range = new VersionRange("raw:''");
 		assertIncludedInRange("#1", range, "raw:'a'");
 
-		assertThrows("Uncaught error: a raw range can not be empty.", IllegalArgumentException.class,
-				() -> new VersionRange("raw:"));
+		assertThrows(IllegalArgumentException.class,
+				() -> new VersionRange("raw:"), "Uncaught error: a raw range can not be empty.");
 	}
 
 	@Test
@@ -73,8 +73,8 @@ public class RawRangeTest extends VersionTesting {
 
 	@Test
 	public void testInvertedRange() {
-		assertThrows("\"Inverted range is not allowed\"", IllegalArgumentException.class,
-				() -> new VersionRange("raw:[2.0.0, 1.0.0]"));
+		assertThrows(IllegalArgumentException.class,
+				() -> new VersionRange("raw:[2.0.0, 1.0.0]"), "\"Inverted range is not allowed\"");
 	}
 
 	@Test

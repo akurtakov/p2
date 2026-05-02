@@ -14,11 +14,11 @@
 
 package org.eclipse.equinox.p2.tests.omniVersion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,14 +38,14 @@ public class VersionTesting {
 	 * Asserts that the versionString version is included in the range.
 	 */
 	public void assertIncludedInRange(String message, VersionRange range, String versionString) {
-		assertTrue(message, range.isIncluded(Version.parseVersion(versionString)));
+		assertTrue(range.isIncluded(Version.parseVersion(versionString)), message);
 	}
 
 	/**
 	 * Asserts that the versionString version is not included in the range.
 	 */
 	public void assertNotIncludedInRange(String message, VersionRange range, String versionString) {
-		assertFalse(message, range.isIncluded(Version.parseVersion(versionString)));
+		assertFalse(range.isIncluded(Version.parseVersion(versionString)), message);
 	}
 
 	public void assertBounds(String rangeSpecification, boolean includeMin, Version lowerBound, Version upperBound,
